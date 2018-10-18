@@ -58,12 +58,7 @@ export class ConfigurationPage extends React.Component {
             return (
                 <MyTable projectName={this.state.projectName}></MyTable>
             )
-        else {
-            return (
-                <h1 > x</h1 >
-            )
-
-        }
+        
         return (
             <div>
                 <h1>Configurations:</h1>
@@ -86,7 +81,7 @@ export class ConfigurationPage extends React.Component {
 
 function mapStateToProps(state) {  
     return {
-      projects: state.projects
+      selectedProject: state.selectedProject
     };
   }
   

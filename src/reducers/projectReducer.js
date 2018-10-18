@@ -15,7 +15,7 @@ const project='';
   export function selectedProjectReducer(state = project, action) {  
     switch(action.type) {
       case 'SELECT_PROJECT':
-        return [...state,action.project]
+        return action.project;
     }
     return state;
   }

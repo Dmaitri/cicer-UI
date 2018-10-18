@@ -13,12 +13,12 @@ import reducers from './reducers/rootReducer';
 import { Route, IndexRoute } from 'react-router';
 
 
-const initialState = { 
-    selectedProject:'5c'
-  };
+// const initialState = { 
+//     selectedProject:'5c'
+//   };
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers,initialState);
+const store = createStoreWithMiddleware(reducers);
 //ReactDOM.render( <App />, document.getElementById('root'));
 
 //ReactDOM.render( <Provider store={store}><App/></Provider>, document.getElementById('root'));

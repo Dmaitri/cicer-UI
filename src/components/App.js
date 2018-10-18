@@ -7,15 +7,15 @@ import {testAction} from '../actions/index';
 import {selectedProject} from 'E:\\new-master\\src\\actions\\projectActions';
 import 'react-dropdown/style.css';
 
-const options = [
-  '5c', 'mist', 'vulcan'
-]
-const defaultOption = options[0]
+// const options = [
+//   '5c', 'mist', 'vulcan'
+// ]
+// const defaultOption = options[0]
 
 export class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { projectName: defaultOption }
+    this.state = { projectName: '' }
   }
 
   handleProjectChange(event) {
@@ -58,13 +58,12 @@ export class App extends React.Component {
 function mapStateToProps(state) {  
   return {
     projects: state.projects,
-    selectedProject: state.selectedProject
   };
 }
 
 const mapActionsToDispatch = (dispatch) => ({
   testAction:()=> dispatch(testAction()),
-  selectedProject: () => dispatch( selectedProject() )
+  selectedProject: (project) => dispatch( selectedProject(project) )
 });
 
 export default connect(mapStateToProps, mapActionsToDispatch)(App);  
