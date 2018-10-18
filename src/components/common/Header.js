@@ -13,14 +13,14 @@ class Header extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({projectName:props.projectName,backState:''});
+        this.setState({ projectName: props.projectName, backState: '' });
     }
 
-    showConfigrationPage(){
-        this.setState({projectName:this.state.project})        
+    showConfigrationPage() {
+        this.setState({ projectName: this.state.project })
     }
 
-    showExecutionPage(){
+    showExecutionPage() {
 
     }
     render() {
@@ -28,8 +28,12 @@ class Header extends React.Component {
 
         return (
             <div>
-                
-                <ConfigurationPage projectName={this.props.projectName}></ConfigurationPage>
+                <nav>
+                    <IndexLink to="/" activeClassName="active">Configuration</IndexLink>
+                    {" | "}
+                    <Link to="/execution" activeClassName="active">Execution</Link>
+                </nav>
+                {/* <ConfigurationPage projectName={this.props.projectName}></ConfigurationPage> */}
 
             </div >
         );

@@ -5,9 +5,11 @@ import EmailAliasesPage from './emailAliasePage';
 import ProcessStatusEditPage from './processStatusEditPage';
 import RepoTypeEditPage from './repoTypeEditPage';
 import MyTable from './git-log-anamolyEditPage';
+import { connect } from 'react-redux';
+import {selectedProject} from 'E:\\new-master\\src\\actions\\projectActions';
 
 
-class ConfigurationPage extends React.Component {
+export class ConfigurationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { files: files1.files, projectName: props.projectName };
@@ -33,31 +35,35 @@ class ConfigurationPage extends React.Component {
     }
     render() {
 
-        if (this.state.fileName == "config.json")
+        if (this.props.selectedProject == "config.json")
             return (
                 <ConfigEditPage projectName={this.props.projectName}></ConfigEditPage>
             )
-
-        if (this.state.fileName == "emailAliases.json")
+        else if (this.props.selectedProjecte == "emailAliases.json")
             return (
                 <EmailAliasesPage projectName={this.state.projectName}></EmailAliasesPage>
             )
 
-        if (this.state.fileName == "processStatus.json")
+        else if (this.props.selectedProject == "processStatus.json")
             return (
                 <ProcessStatusEditPage projectName={this.state.projectName}></ProcessStatusEditPage>
             )
 
-        if (this.state.fileName == "repoType.json")
+        else if (this.props.selectedProject == "repoType.json")
             return (
                 <RepoTypeEditPage projectName={this.state.projectName}></RepoTypeEditPage>
             )
 
-        if (this.state.fileName == "git-log-anamoly.json")
+        else if (this.props.selectedProject == "git-log-anamoly.json")
             return (
                 <MyTable projectName={this.state.projectName}></MyTable>
             )
+        else {
+            return (
+                <h1 > x</h1 >
+            )
 
+        }
         return (
             <div>
                 <h1>Configurations:</h1>
@@ -78,4 +84,17 @@ class ConfigurationPage extends React.Component {
     }
 }
 
-export default ConfigurationPage;
+function mapStateToProps(state) {  
+    return {
+      projects: state.projects
+    };
+  }
+  
+  const mapActionsToDispatch = (dispatch) => ({
+    selectProject: (project) => dispatch( selectedProject(project) ),
+  });
+  
+  export default connect(mapStateToProps, mapActionsToDispatch)(ConfigurationPage);  
+
+  
+//export default ConfigurationPage;
