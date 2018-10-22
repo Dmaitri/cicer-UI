@@ -1,17 +1,13 @@
 import React from 'react';
-import * as  data from '../json/processStatus';
 import Header from '../common/Header'
+import { connect } from 'react-redux';
+import { getConfigDataForProject } from '../../actions';
 
-
-class ProcessStatusEditPage extends React.Component {
+export class ProcessStatusEditPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.state);
         this.state = { statusArr: [], backState: '', globalRepoArr: [], projectName: this.props.projectName };
-        data.processData.map(ele => {
-            this.state.globalRepoArr.push({ key: ele["projectName"], value: ele })
-        });
     }
 
     handleSubmit() {
@@ -23,13 +19,19 @@ class ProcessStatusEditPage extends React.Component {
         this.setState({ backState: "true" });
     }
 
+    componentWillMount() {
+        this.props.getConfigDataForProject("processstatus");
+    }
+
     createRow(arr) {
-        return (
-            <tr key={arr.key}>
-                <td> {arr.key}</td>
-                <td><input type="text" name="title" defaultValue={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
-            </tr>
-        );
+        if (arr.key != "_links") {
+            return (
+                <tr key={arr.key}>
+                    <td> {arr.key}</td>
+                    <td><input type="text" name="title" defaultValue={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
+                </tr>
+            );
+        }
     }
     onBlur(key, event) {
         var stateCopy = Object.assign({}, this.state);
@@ -43,11 +45,6 @@ class ProcessStatusEditPage extends React.Component {
                 })
             }
         });
-        console.log(stateCopy.globalRepoArr);
-        // stateCopy.projectName = this.state.projectName;
-        // stateCopy.backState = '';
-        // this.state = stateCopy;
-        // console.log(this.state);
         this.setState(stateCopy);
     }
 
@@ -62,15 +59,28 @@ class ProcessStatusEditPage extends React.Component {
 
     render() {
         let x = [];
-        let dataToRender;
-        this.state.globalRepoArr.forEach(ele => {
-            if (ele.key == this.props.projectName) {
-                dataToRender = ele.value
+        this.props.configData.map(element => {
+            for (var i = 0; i < element.length; i++) {
+                var y = element[i];
+                if (y["projectname"] == this.props.selectedProject) {
+                    Object.keys(y).forEach(element => {
+                        x.push({ key: element, value: y[element] })
+                    })
+                }
             }
-        })
-        Object.keys(dataToRender).forEach(element => {
-            x.push({ key: element, value: dataToRender[element] })
-        })
+            Object.keys(element).forEach(ele => {
+            })
+        });
+        // let x = [];
+        // let dataToRender;
+        // this.state.globalRepoArr.forEach(ele => {
+        //     if (ele.key == this.props.projectName) {
+        //         dataToRender = ele.value
+        //     }
+        // })
+        // Object.keys(dataToRender).forEach(element => {
+        //     x.push({ key: element, value: dataToRender[element] })
+        // })
 
         if (this.state.backState != "") {
             return (
@@ -92,4 +102,15 @@ class ProcessStatusEditPage extends React.Component {
     }
 }
 
-export default ProcessStatusEditPage;
+function mapStateToProps(state) {
+    return {
+        selectedProject: state.selectedProject,
+        configData: state.configData
+    };
+}
+
+const mapActionsToDispatch = (dispatch) => ({
+    getConfigDataForProject: (filename) => { return dispatch(getConfigDataForProject(filename)) },
+});
+
+export default connect(mapStateToProps, mapActionsToDispatch)(ProcessStatusEditPage);

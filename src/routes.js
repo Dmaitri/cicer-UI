@@ -6,7 +6,7 @@ import ExecutionPage from './components/execution/ExecutionPage';
 import ConfigEditPage from './components/configuration/configEditPage';
 import EmailAliasesPage from './components/configuration/emailAliasePage';
 import ProcessStatusEditPage from './components/configuration/processStatusEditPage';
-import RepoTypePage from './components/configuration/repoTypeEditPage';
+import RepoTypeEditPage from './components/configuration/repoTypeEditPage';
 
 export default (
     <Route path="/" component={App}>
@@ -15,5 +15,6 @@ export default (
         <Route path="config.jsonedit" component={ConfigEditPage} />
         <Route path="emailAliases.jsonedit" component={EmailAliasesPage} />
         <Route path="processStatus.jsonedit" component={ProcessStatusEditPage} />
+        <Route path="repoType.jsonedit" component={RepoTypeEditPage} />
     </Route>
 );

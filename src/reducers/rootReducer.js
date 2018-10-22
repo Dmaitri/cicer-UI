@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';  
-import {projectReducer,selectedProjectReducer} from './projectReducer';
+import {projectReducer,selectProjectReducer} from './projectReducer';
+import {configReducer} from './configReducer';
 
 const  store = {
     projects: projectReducer,
-    selectedProject: selectedProjectReducer
+    selectedProject: selectProjectReducer,
+    configData: configReducer
 }
  const rootReducer = combineReducers(store);
 

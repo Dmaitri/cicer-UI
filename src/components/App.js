@@ -3,14 +3,10 @@ import React from 'react';
 import Header from './common/Header';
 import Dropdown from 'react-dropdown';
 import { connect } from 'react-redux';
-import {testAction} from '../actions/index';
-import {selectedProject} from 'E:\\new-master\\src\\actions\\projectActions';
+import { testAction } from '../actions/index';
+import { selectProject } from '../actions/projectActions';
+import { Link, IndexLink } from 'react-router';
 import 'react-dropdown/style.css';
-
-// const options = [
-//   '5c', 'mist', 'vulcan'
-// ]
-// const defaultOption = options[0]
 
 export class App extends React.Component {
   constructor(props) {
@@ -19,53 +15,58 @@ export class App extends React.Component {
   }
 
   handleProjectChange(event) {
-   // this.setState({ projectName:event.value});
-   this.props.selectedProject(event.value);
+    this.props.selectProject(event.value);
   }
 
 
-  componentWillMount()
-  {
+  componentWillMount() {
     this.props.testAction();
   }
 
   render() {
-    var arr=[];
-    if(this.props.projects[0]!=undefined)
-    {
-    for(var i=0;i<this.props.projects[0].length;i++)
-    {
-      var x=this.props.projects[0];
-      var y=x[i]["Name"];
-      console.log(y);
-      arr.push(y);
+    var arr = [];
+    if (this.props.projects[0] != undefined) {
+      for (var i = 0; i < this.props.projects[0].length; i++) {
+        var x = this.props.projects[0];
+        var y = x[i]["Name"];
+        arr.push(y);
+      }
     }
-  }
     return (
       <div className="container-fluid">
         <h1><b>Talentica</b></h1>
         <div className="jumbotron">
           <h6>Select Project:</h6>
-          <Dropdown options={arr} value="Select a Project" placeholder="Select an option" onChange={(e) => this.handleProjectChange(e)} />
+          <Dropdown options={arr} value={this.props.selectedProject} placeholder="Select an option" onChange={(e) => this.handleProjectChange(e)} />
         </div>
-        <Header projectName={this.state.projectName}></Header>
-        {this.props.children}
+        <div>
+          <nav>
+            <IndexLink to="/" activeClassName="active">Configuration</IndexLink>
+            {" | "}
+            <Link to="/execution" activeClassName="active">Execution</Link>
+          </nav>
+        {this.props.children} 
+
+        </div >
+        {/* <Header></Header>
+        {this.props.children} */}
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {  
+function mapStateToProps(state) {
   return {
     projects: state.projects,
+    selectedProject: state.selectedProject,
   };
 }
 
 const mapActionsToDispatch = (dispatch) => ({
-  testAction:()=> dispatch(testAction()),
-  selectedProject: (project) => dispatch( selectedProject(project) )
+  testAction: () => dispatch(testAction()),
+  selectProject: (project) => dispatch(selectProject(project))
 });
 
-export default connect(mapStateToProps, mapActionsToDispatch)(App);  
+export default connect(mapStateToProps, mapActionsToDispatch)(App);
 
 

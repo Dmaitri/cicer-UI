@@ -1,4 +1,4 @@
-export const selectedProject = (project) => ({
+export const selectProject = (selectedProject) => ({
     type: 'SELECT_PROJECT',
-    project:project
+    selectedProject:selectedProject
 });

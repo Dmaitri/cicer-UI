@@ -1,19 +1,36 @@
-import axios from 'axios';  
-import displayProjects from '../actions/projectActions';
+import axios from 'axios';
 
-const API_URL = 'http://localhost:9900/data';  
+const API_URL = 'http://localhost:9900/data';
 
-export function testAction() {  
-    return function(dispatch) {
-      axios.get(`${API_URL}/projects`)
+export function testAction() {
+  return function (dispatch) {
+    axios.get(`${API_URL}/projects`)
       .then(response => {
         dispatch({
-            type: 'GET_PROJECTS',
-            payload: response.data        
+          type: 'GET_PROJECTS',
+          payload: response.data
         });
       })
       .catch((error) => {
         console.log(error);
       })
-    }
   }
+}
+
+export function getConfigDataForProject(filename) {
+    return function (dispatch) {
+      var url=`${API_URL}/${filename}`;
+       return axios.get(url)
+        .then(response => {
+          dispatch({
+            type: 'GET_CONFIGDATA_FORPROJECT',
+            payload: response.data
+          })
+          return response.data;
+        })
+        .catch(err => {
+          console.log(err);
+          throw err;
+        })
+    }   
+}

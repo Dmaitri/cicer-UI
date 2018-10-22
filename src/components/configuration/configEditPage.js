@@ -1,41 +1,41 @@
 import React from 'react';
-import * as config from '../json/config'
 import Header from '../common/Header'
+import { connect } from 'react-redux';
+import { getConfigDataForProject } from '../../actions';
 
-class ConfigEditPage extends React.Component {
+export class ConfigEditPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { configArr: [], backState: '', globalArr: [], projectName: this.props.projectName };
-        let Arr = [];
-        config.configData.map(ele => {
-            this.state.globalArr.push({ key: ele["projectName"], value: ele })
-        })
-        //this.setState({ globalArr: Arr });
-        // console.log(this.state.globalArr);
     }
-    componentWillReceiveProps(props) {
-        this.setState({ projectName: props.projectName, backState: '' });
-    }
+    // componentWillReceiveProps(props) {
+    //     this.setState({ projectName: props.projectName, backState: '' });
+    // }
 
     handleSubmit() {
         var stateCopy = Object.assign({}, this.state);
         this.setState(stateCopy)
     }
 
+    componentWillMount() {
+        this.props.getConfigDataForProject("config");
+    }
+
     createRow(arr) {
-        return (
-            <tr key={arr.key}>
-                <td> {arr.key}</td>
-                {arr.key == "projectName" ?
-                    (<td><input type="text" name="title" defaultValue={arr.value} readOnly={true} /></td>) : (
-                        <td><input type="text" name="title" defaultValue={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
-                    )}
-            </tr>
-        );
+        if (arr.key != "_links") {
+            return (
+                <tr key={arr.key}>
+                    <td> {arr.key}</td>
+                    {arr.key == "Projectname" ?
+                        (<td><input type="text" name="title" value={arr.value} readOnly={true} /></td>) : (
+                            <td><input type="text" name="title" value={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
+                        )}
+                </tr>
+            );
+        }
     }
 
     onBlur(key, event) {
-        let dataToRender;
         var stateCopy = Object.assign({}, this.state);
         stateCopy.globalArr.map(function (ele) {
             if (ele.key == stateCopy.projectName) {
@@ -47,40 +47,37 @@ class ConfigEditPage extends React.Component {
                 })
             }
         });
-        console.log(stateCopy.globalArr);
-        // stateCopy.projectName = this.state.projectName;
-        // stateCopy.backState = '';
-        // this.state = stateCopy;
-        // console.log(this.state);
         this.setState(stateCopy);
     }
 
-    handleBackButton() {
-        var stateCopy = Object.assign({}, this.state);
-        stateCopy.backState = "true";
-        stateCopy.projectName = this.state.projectName;
-        stateCopy.configArr = this.state.configArr;
-        this.setState(stateCopy);
+    // handleBackButton() {
+    //     var stateCopy = Object.assign({}, this.state);
+    //     stateCopy.backState = "true";
+    //     stateCopy.projectName = this.state.projectName;
+    //     stateCopy.configArr = this.state.configArr;
+    //     this.setState(stateCopy);
 
-        console.log(this.state);
-    }
+    //     console.log(this.state);
+    // }
 
     render() {
-        //let dataToRender = this.state.globalArr[this.props.projectName].value;
         let x = [];
-        let dataToRender;
-        this.state.globalArr.forEach(ele => {
-            if (ele.key == this.props.projectName) {
-                dataToRender = ele.value
+        this.props.configData.map(element => {
+            for (var i = 0; i < element.length; i++) {
+                var y = element[i];
+                if (y["Projectname"] == this.props.selectedProject) {
+                    Object.keys(y).forEach(element => {
+                        x.push({ key: element, value: y[element] })
+                    })
+                }
             }
-        })
-        Object.keys(dataToRender).forEach(element => {
-            x.push({ key: element, value: dataToRender[element] })
-        })
+            Object.keys(element).forEach(ele => {
+            })
+        });
         if (this.state.backState != "") {
 
             return (
-                <Header projectName={this.state.projectName} backState={this.state.backState}></Header>
+                <Header projectName={this.props.selectedProject} backState={this.state.backState}></Header>
             );
         }
         return (
@@ -90,11 +87,23 @@ class ConfigEditPage extends React.Component {
                 </table>
                 <tr>
                     <input type="button" value="Submit" onClick={() => this.handleSubmit(this)} />
-                    <input type="button" value="Back" onClick={() => this.handleBackButton(this)} />
+                    {/* <input type="button" value="Back" onClick={() => this.handleBackButton(this)} /> */}
                 </tr>
             </form>
         );
     }
 }
 
-export default ConfigEditPage;
+function mapStateToProps(state) {
+    return {
+        selectedProject: state.selectedProject,
+        configData: state.configData
+    };
+}
+
+
+const mapActionsToDispatch = (dispatch) => ({
+    getConfigDataForProject: (filename) => { return dispatch(getConfigDataForProject(filename)) },
+});
+
+export default connect(mapStateToProps, mapActionsToDispatch)(ConfigEditPage);

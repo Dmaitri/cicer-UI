@@ -1,16 +1,12 @@
 import React from 'react';
-import * as repo from '../json/repoType'
 import Header from '../common/Header'
+import { connect } from 'react-redux';
+import { getConfigDataForProject } from '../../actions';
 
-class RepoTypeEditPage extends React.Component {
+export class RepoTypeEditPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { repoArr: [], backState: '', globalRepoArr: [], projectName: this.props.projectName };
-        repo.repoData.map(ele => {
-            this.state.globalRepoArr.push({ key: ele["projectName"], value: ele })
-        })
-        //this.setState({ globalRepoArr: Arr });
-        // console.log(this.state.globalRepoArr);
     }
     componentWillReceiveProps(props) {
         this.setState({ projectName: props.projectName, backState: '' });
@@ -21,23 +17,29 @@ class RepoTypeEditPage extends React.Component {
         this.setState(stateCopy)
     }
 
+
+    componentWillMount() {
+        this.props.getConfigDataForProject("repotype");
+    }
+
     createRow(arr) {
-        return (
-            <tr key={arr.key}>
-                <td> {arr.key}</td>
-                {arr.key == "projectName" ?
-                    (<td><input type="text" name="title" defaultValue={arr.value} readOnly={true} /></td>) : (
-                        <td><input type="text" name="title" defaultValue={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
-                    )}
-            </tr>
-        );
+        if (arr.key != "_links") {
+            return (
+                <tr key={arr.key}>
+                    <td> {arr.key}</td>
+                    {arr.key == "projectname" ?
+                        (<td><input type="text" name="title" value={arr.value} readOnly={true} /></td>) : (
+                            <td><input type="text" name="title" value={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
+                        )}
+                </tr>
+            );
+        }
     }
 
     onBlur(key, event) {
         var stateCopy = Object.assign({}, this.state);
         stateCopy.globalRepoArr.map(function (ele) {
             if (ele.key == stateCopy.projectName) {
-                //dataToRender = ele.value;
                 Object.keys(ele.value).forEach(element => {
                     if (element == key) {
                         ele.value[element] = event.target.value;
@@ -45,11 +47,6 @@ class RepoTypeEditPage extends React.Component {
                 })
             }
         });
-        console.log(stateCopy.globalRepoArr);
-        // stateCopy.projectName = this.state.projectName;
-        // stateCopy.backState = '';
-        // this.state = stateCopy;
-        // console.log(this.state);
         this.setState(stateCopy);
     }
 
@@ -62,16 +59,18 @@ class RepoTypeEditPage extends React.Component {
     }
 
     render() {
-        //let dataToRender = this.state.globalRepoArr[this.props.projectName].value;
         let x = [];
-        let dataToRender;
-        this.state.globalRepoArr.forEach(ele => {
-            if (ele.key == this.props.projectName) {
-                dataToRender = ele.value
+        this.props.configData.map(element => {
+            for (var i = 0; i < element.length; i++) {
+                var y = element[i];
+                if (y["projectname"] == this.props.selectedProject) {
+                    Object.keys(y).forEach(element => {
+                        x.push({ key: element, value: y[element] })
+                    })
+                }
             }
-        })
-        Object.keys(dataToRender).forEach(element => {
-            x.push({ key: element, value: dataToRender[element] })
+            Object.keys(element).forEach(ele => {
+            })
         })
         if (this.state.backState != "") {
 
@@ -93,4 +92,15 @@ class RepoTypeEditPage extends React.Component {
     }
 }
 
-export default RepoTypeEditPage;
+function mapStateToProps(state) {
+    return {
+        selectedProject: state.selectedProject,
+        configData: state.configData
+    };
+}
+
+const mapActionsToDispatch = (dispatch) => ({
+    getConfigDataForProject: (filename) => { return dispatch(getConfigDataForProject(filename)) },
+});
+
+export default connect(mapStateToProps, mapActionsToDispatch)(RepoTypeEditPage);

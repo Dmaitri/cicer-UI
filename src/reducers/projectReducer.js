@@ -1,21 +1,19 @@
-const projects=[];
+//const projects=[];
 
-export function projectReducer(state = projects, action) {  
+export function projectReducer(state =[], action) {  
     switch(action.type) {
       case 'GET_PROJECTS':
         var x= [...state, action.payload ];
         return x;
-      case 'SELECT_PROJECT':
-        return [...state,action.projcet]
     }
     return state;
   }
 
-const project='';
-  export function selectedProjectReducer(state = project, action) {  
+//const selectedProject='';
+  export function selectProjectReducer(state = '', action) {  
     switch(action.type) {
       case 'SELECT_PROJECT':
-        return action.project;
+      return action.selectedProject
     }
     return state;
   }
