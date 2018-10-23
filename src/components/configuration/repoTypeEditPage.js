@@ -1,96 +1,54 @@
 import React from 'react';
-import Header from '../common/Header'
 import { connect } from 'react-redux';
 import { getConfigDataForProject } from '../../actions';
+import RepoTypeEditForm from '../forms/repoTypeEditForm';
+import { reduxForm } from 'redux-form';
 
 export class RepoTypeEditPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { repoArr: [], backState: '', globalRepoArr: [], projectName: this.props.projectName };
-    }
-    componentWillReceiveProps(props) {
-        this.setState({ projectName: props.projectName, backState: '' });
-    }
-
-    handleSubmit() {
-        var stateCopy = Object.assign({}, this.state);
-        this.setState(stateCopy)
-    }
-
-
     componentWillMount() {
         this.props.getConfigDataForProject("repotype");
     }
 
-    createRow(arr) {
-        if (arr.key != "_links") {
-            return (
-                <tr key={arr.key}>
-                    <td> {arr.key}</td>
-                    {arr.key == "projectname" ?
-                        (<td><input type="text" name="title" value={arr.value} readOnly={true} /></td>) : (
-                            <td><input type="text" name="title" value={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
-                        )}
-                </tr>
-            );
-        }
+    submit(values) {
+        this.props.putConfigData(values["Id"], values)
+            .then(res => {
+                document.getElementById("tag").innerHTML = "success!!!"
+                this.props.getConfigDataForProject("repotype");
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
-    onBlur(key, event) {
-        var stateCopy = Object.assign({}, this.state);
-        stateCopy.globalRepoArr.map(function (ele) {
-            if (ele.key == stateCopy.projectName) {
-                Object.keys(ele.value).forEach(element => {
-                    if (element == key) {
-                        ele.value[element] = event.target.value;
-                    }
+    filterData(configData) {
+        let dataObj = {};
+        for (var i = 0; i < configData.length; i++) {
+            var data = configData[i];
+            if (data["projectname"] == this.props.selectedProject) {
+                Object.keys(data).forEach(element => {
+                    dataObj[element] = data[element];
                 })
             }
-        });
-        this.setState(stateCopy);
+        }
+        return dataObj;
     }
-
-    handleBackButton() {
-        var stateCopy = Object.assign({}, this.state);
-        stateCopy.backState = "true";
-        stateCopy.projectName = this.state.projectName;
-        stateCopy.repoArr = this.state.repoArr;
-        this.setState(stateCopy);
-    }
-
     render() {
-        let x = [];
-        this.props.configData.map(element => {
-            for (var i = 0; i < element.length; i++) {
-                var y = element[i];
-                if (y["projectname"] == this.props.selectedProject) {
-                    Object.keys(y).forEach(element => {
-                        x.push({ key: element, value: y[element] })
-                    })
-                }
-            }
-            Object.keys(element).forEach(ele => {
-            })
-        })
-        if (this.state.backState != "") {
-
+        let dataObj = this.filterData(this.props.configData)
+        if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
+            return (<h3>No Data Available related to this project</h3>)
+        }
+        else {
             return (
-                <Header projectName={this.state.projectName} backState={this.state.backState}></Header>
+                <RepotypeditForm initialValues={dataObj} onSubmit={this.submit.bind(this)}></RepotypeditForm>
             );
         }
-        return (
-            <form>
-                <table>
-                    {x.map(this.createRow, this)}
-                </table>
-                <tr>
-                    <input type="button" value="Submit" onClick={() => this.handleSubmit(this)} />
-                    <input type="button" value="Back" onClick={() => this.handleBackButton(this)} />
-                </tr>
-            </form>
-        );
     }
 }
+
+let RepotypeditForm = reduxForm({
+    form: 'repotypeditForm',
+    enableReinitialize: true,
+})(RepoTypeEditForm);
 
 function mapStateToProps(state) {
     return {

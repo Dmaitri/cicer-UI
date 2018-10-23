@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import * as files1 from '../json/fileData';
 import { connect } from 'react-redux';
 import {selectProject} from '../../actions/projectActions';
@@ -22,7 +23,7 @@ export class ConfigurationPage extends React.Component {
             <tr key={files.id}>
                 <td>{files.id}</td>
                 <td>{files.fileName}</td>
-                <td><a href={files.fileName+"edit"}>Edit</a></td>
+                <td><Link to={files.fileName.replace('.json',"edit").toLowerCase()} activeClassName="active">Edit</Link></td>
                 {/* <td onClick={() => this.onclickHandle(files.fileName)}>Edit</td> */}
             </tr>
         );

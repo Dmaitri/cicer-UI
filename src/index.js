@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {App} from '../src/components/App';
 import * as serviceWorker from './serviceWorker';
 import routes from './routes';
 import { Router, browserHistory } from 'react-router';
@@ -10,7 +9,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
-import { Route, IndexRoute } from 'react-router';
 
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);

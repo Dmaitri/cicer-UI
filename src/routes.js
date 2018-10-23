@@ -12,9 +12,9 @@ export default (
     <Route path="/" component={App}>
         <IndexRoute component={ConfigurationPage} />
         <Route path="execution" component={ExecutionPage} />
-        <Route path="config.jsonedit" component={ConfigEditPage} />
-        <Route path="emailAliases.jsonedit" component={EmailAliasesPage} />
-        <Route path="processStatus.jsonedit" component={ProcessStatusEditPage} />
-        <Route path="repoType.jsonedit" component={RepoTypeEditPage} />
+        <Route path="configedit" component={ConfigEditPage} />
+        <Route path="emailaliasesedit" component={EmailAliasesPage} />
+        <Route path="processstatusedit" component={ProcessStatusEditPage} />
+        <Route path="repotypeedit" component={RepoTypeEditPage} />
     </Route>
 );

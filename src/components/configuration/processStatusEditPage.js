@@ -1,106 +1,59 @@
 import React from 'react';
-import Header from '../common/Header'
 import { connect } from 'react-redux';
 import { getConfigDataForProject } from '../../actions';
+import ProcessStatusEditForm from '../forms/processStatusEditForm';
+import { reduxForm } from 'redux-form';
 
 export class ProcessStatusEditPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { statusArr: [], backState: '', globalRepoArr: [], projectName: this.props.projectName };
-    }
-
-    handleSubmit() {
-        var stateCopy = Object.assign({}, this.state);
-        this.setState(stateCopy)
-    }
-
-    handleBackButton() {
-        this.setState({ backState: "true" });
-    }
-
     componentWillMount() {
         this.props.getConfigDataForProject("processstatus");
     }
 
-    createRow(arr) {
-        if (arr.key != "_links") {
-            return (
-                <tr key={arr.key}>
-                    <td> {arr.key}</td>
-                    <td><input type="text" name="title" defaultValue={arr.value} onBlur={(event) => this.onBlur(arr.key, event)} /></td>
-                </tr>
-            );
-        }
+    submit(values) {
+        this.props.putConfigData(values["id"], values)
+            .then(res => {
+                document.getElementById("tag").innerHTML = "success!!!"
+                this.props.getConfigDataForProject("config");
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
-    onBlur(key, event) {
-        var stateCopy = Object.assign({}, this.state);
-        stateCopy.globalRepoArr.map(function (ele) {
-            if (ele.key == stateCopy.projectName) {
-                //dataToRender = ele.value;
-                Object.keys(ele.value).forEach(element => {
-                    if (element == key) {
-                        ele.value[element] = event.target.value;
-                    }
+
+    filterData(configData) {
+        let dataObj = {};
+        for (var i = 0; i < configData.length; i++) {
+            var data = configData[i];
+            if (data["projectname"] == this.props.selectedProject) {
+                Object.keys(data).forEach(element => {
+                    dataObj[element] = data[element];
                 })
             }
-        });
-        this.setState(stateCopy);
-    }
-
-    componentWillReceiveProps(props) {
-        this.setState({ projectName: props.projectName, backState: '' });
-    }
-
-    handleSubmit() {
-        var stateCopy = Object.assign({}, this.state);
-        this.setState(stateCopy)
+        }
+        return dataObj;
     }
 
     render() {
-        let x = [];
-        this.props.configData.map(element => {
-            for (var i = 0; i < element.length; i++) {
-                var y = element[i];
-                if (y["projectname"] == this.props.selectedProject) {
-                    Object.keys(y).forEach(element => {
-                        x.push({ key: element, value: y[element] })
-                    })
-                }
-            }
-            Object.keys(element).forEach(ele => {
-            })
-        });
-        // let x = [];
-        // let dataToRender;
-        // this.state.globalRepoArr.forEach(ele => {
-        //     if (ele.key == this.props.projectName) {
-        //         dataToRender = ele.value
-        //     }
-        // })
-        // Object.keys(dataToRender).forEach(element => {
-        //     x.push({ key: element, value: dataToRender[element] })
-        // })
+        let dataObj = this.filterData(this.props.configData)
 
-        if (this.state.backState != "") {
+        if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
+            return (<h3>No Data Available related to this project</h3>)
+        }
+        else {
             return (
-                <Header projectName={this.state.projectName} backState={this.state.backState}></Header>
+                <div>
+                    <ProcessstatuseditForm initialValues={dataObj} onSubmit={this.submit.bind(this)} />
+                    <h6 id="tag"></h6>
+                </div>
             );
         }
-
-        return (
-            <form>
-                <table>
-                    {x.map(this.createRow, this)}
-                </table>
-                <tr>
-                    <input type="button" value="Submit" onClick={() => this.handleSubmit(this)} />
-                    <input type="button" value="Back" onClick={() => this.handleBackButton(this)} />
-                </tr>
-            </form>
-        );
     }
 }
+
+let ProcessstatuseditForm = reduxForm({
+    form: 'processstatuseditForm',
+    enableReinitialize: true,
+})(ProcessStatusEditForm);
 
 function mapStateToProps(state) {
     return {

@@ -1,18 +1,10 @@
 import React from 'react';
-import { x } from '../json/emailAliases';
-import Header from '../common/Header'
 import { connect } from 'react-redux';
 import { getConfigDataForProject } from '../../actions';
+import { Field } from 'redux-form';
+
 
 export class EmailAliasesPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { address: x, typed: '', backState: '' };
-    }
-
-    onBlur(event) {
-        this.setState({ address: x, typed: event.target.value })
-    }
     componentWillMount() {
         this.props.getConfigDataForProject("emailalias");
     }
@@ -29,59 +21,56 @@ export class EmailAliasesPage extends React.Component {
         }
     }
 
-    handleBackButton() {
-        var stateCopy = Object.assign({}, this.state);
-        stateCopy.backState = "true";
-        stateCopy.projectName = this.state.projectName;
-        stateCopy.repoArr = this.state.repoArr;
-        this.setState(stateCopy);
-    }
-    handleClick(email, alias) {
-        var stateCopy = Object.assign({}, this.state);
-        let arr = stateCopy.address;
-        stateCopy.address.map(function (y) {
-            if (y.email == email) {
-                y.alias = alias;
-            }
-        });
-        this.setState(stateCopy);
-    }
-
     render() {
         let x = [];
-        this.props.configData.map(element => {
-            for (var i = 0; i < element.length; i++) {
-                var y = element[i];
-                if (y["projectname"] == this.props.selectedProject) {
-                    Object.keys(y).forEach(element => {
+        // this.props.configData.map(element => {
+        let element = this.props.configData;
+        for (var i = 0; i < element.length; i++) {
+            var y = element[i];
+            if (y["projectname"] == this.props.selectedProject) {
+                Object.keys(y).forEach(element => {
+                    if (element != "projectname") {
                         x.push({ key: element, value: y[element] })
-                    })
-                }
+                    }
+                })
             }
-            Object.keys(element).forEach(ele => {
-            })
-        });
-        if (this.state.backState != "") {
-            return (
-                <Header projectName={this.state.projectName} backState={this.state.backState}></Header>
-            );
         }
+
 
         return (
             <form>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Aliases</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {x.map(this.createRow, this)}
-                        <tr>
-                            <input type="button" value="Back" onClick={() => this.handleBackButton(this)} />
-                        </tr>
-                    </tbody>
+                <table>
+                    <label htmlFor="projectname">projectname</label>
+                    <Field
+                        name="projectname"
+                        type="text"
+                        component="input"
+                        id="projectname"
+                    />
+                    {
+                        x.map(ele => {
+                            let emailId = `${ele.key}`, aliasId = `${ele.value}`
+                            return (
+                                <tr>
+                                    <label htmlFor={emailId}>Email</label>
+                                    <input
+                                        type="text"
+                                        name={emailId}
+                                        id={emailId}
+                                        className="name"
+                                    />
+                                    <label htmlFor={aliasId}>Alias</label>
+                                    <input
+                                        type="text"
+                                        name={aliasId}
+                                        id={aliasId}
+                                        className="age"
+                                    />
+                                </tr>
+                            )
+                        })
+                    }
+                    <input type="submit" value="Submit" />
                 </table>
             </form>
         );

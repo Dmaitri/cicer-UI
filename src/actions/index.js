@@ -18,19 +18,31 @@ export function testAction() {
 }
 
 export function getConfigDataForProject(filename) {
-    return function (dispatch) {
-      var url=`${API_URL}/${filename}`;
-       return axios.get(url)
-        .then(response => {
-          dispatch({
-            type: 'GET_CONFIGDATA_FORPROJECT',
-            payload: response.data
-          })
-          return response.data;
+  return function (dispatch) {
+    var url = `${API_URL}/${filename}`;
+    return axios.get(url)
+      .then(response => {
+        dispatch({
+          type: 'GET_CONFIGDATA_FORPROJECT',
+          payload: response.data
         })
-        .catch(err => {
-          console.log(err);
-          throw err;
-        })
-    }   
+        return response.data;
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      })
+  }
+}
+
+export function putConfigData(id, data) {
+  return function (dispatch) {
+    return axios.put(`${API_URL}/config/${id}`, data)
+      .then(response => {
+        return "success";
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
 }

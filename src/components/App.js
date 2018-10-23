@@ -1,6 +1,5 @@
 // This component handles the App template used on every page.
 import React from 'react';
-import Header from './common/Header';
 import Dropdown from 'react-dropdown';
 import { connect } from 'react-redux';
 import { testAction } from '../actions/index';
@@ -48,8 +47,6 @@ export class App extends React.Component {
         {this.props.children} 
 
         </div >
-        {/* <Header></Header>
-        {this.props.children} */}
       </div>
     );
   }
