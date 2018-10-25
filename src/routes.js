@@ -7,6 +7,8 @@ import ConfigEditPage from './components/configuration/configEditPage';
 import EmailAliasesPage from './components/configuration/emailAliasePage';
 import ProcessStatusEditPage from './components/configuration/processStatusEditPage';
 import RepoTypeEditPage from './components/configuration/repoTypeEditPage';
+import CreateNewProject from './components/execution/createNewProject';
+import ExecuteSP from './components/execution/executeSP';
 
 export default (
     <Route path="/" component={App}>
@@ -16,5 +18,7 @@ export default (
         <Route path="emailaliasesedit" component={EmailAliasesPage} />
         <Route path="processstatusedit" component={ProcessStatusEditPage} />
         <Route path="repotypeedit" component={RepoTypeEditPage} />
+        <Route path="createnewproject" component={CreateNewProject} />
+        <Route path="ExecuteSP" component={ExecuteSP} />
     </Route>
 );

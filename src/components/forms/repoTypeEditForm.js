@@ -1,39 +1,30 @@
 import React from 'react'
 import { Field } from 'redux-form';
 
-const RepoTypeEditForm = ({ handleSubmit }) => {
+const RepoTypeEditForm = ({ handleSubmit, fields }) => {
     return (
         <form onSubmit={handleSubmit}>
-            <table>
-                <tr>
-                    <td> <label htmlFor="projectname">Projectname:</label></td>
-                    <Field
-                        name="projectname"
-                        type="text"
-                        component="input"
-                        id="projectname"
+            {fields.map(field => (
+                <table>
+                    <tr>
+                        <td> <label>reponame:</label></td>
+                        <Field
+                            name={field.key1}
+                            type="text"
+                            component="input"
+                            id={field.key1}
+                        />
 
-                    />
-                </tr>
-                <tr>
-                    <td> <label htmlFor="reponame">reponame:</label></td>
-                    <Field
-                        name="reponame"
-                        type="text"
-                        component="input"
-                        id="reponame"
-                    />
-                </tr>
-                <tr>
-                    <td> <label htmlFor="repotype">repotype:</label></td>
-                    <Field
-                        name="repotype"
-                        type="text"
-                        component="input"
-                        id="repotype"
-                    />
-                </tr>
-            </table>
+                        <td> <label>repotype:</label></td>
+                        <Field
+                            name={field.key2}
+                            type="text"
+                            component="input"
+                            id={field.key2}
+                        />
+                    </tr>
+                </table>
+            ))}
             <button type="submit"  >Submit</button>
         </form>
     );

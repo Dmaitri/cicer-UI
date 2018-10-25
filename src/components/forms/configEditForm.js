@@ -19,7 +19,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                     <td> <label htmlFor="anamolyLOCCountPerCommit">anamolyLOCCountPerCommit:</label></td>
                     <Field
                         name="anamolyLOCCountPerCommit"
-                        type="text"
+                        type="number"
                         component="input"
                         id="anamolyLOCCountPerCommit"
                     />
@@ -28,7 +28,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                     <td> <label htmlFor="anamolyLOCCount">anamolyLOCCount:</label></td>
                     <Field
                         name="anamolyLOCCount"
-                        type="text"
+                        type="number"
                         component="input"
                         id="anamolyLOCCount"
                     />
@@ -37,7 +37,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                     <td> <label htmlFor="ciceroServerPort">ciceroServerPort:</label></td>
                     <Field
                         name="ciceroServerPort"
-                        type="text"
+                        type="number"
                         component="input"
                         id="ciceroServerPort"
                     />
@@ -97,7 +97,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                     />
                 </tr>
             </table>
-            <button type="submit"  >Submit</button>
+            <button type="submit">Submit</button>
         </form>
     );
 };

@@ -10,12 +10,8 @@ import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
-
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
-//ReactDOM.render( <App />, document.getElementById('root'));
-
-//ReactDOM.render( <Provider store={store}><App/></Provider>, document.getElementById('root'));
 
 ReactDOM.render(
     <Provider store={store}>

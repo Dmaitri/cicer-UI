@@ -1,31 +1,15 @@
-import axios from 'axios';
+import {get,post,put,patch} from '../api/api';
 
-const API_URL = 'http://localhost:9900/data';
-
-export function testAction() {
+export function getProjects() {
   return function (dispatch) {
-    axios.get(`${API_URL}/projects`)
-      .then(response => {
-        dispatch({
-          type: 'GET_PROJECTS',
-          payload: response.data
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    get(dispatch,'GET_PROJECTS', '/projects');
   }
 }
 
-export function getConfigDataForProject(filename) {
+export function getConfigDataForProject(filename,projectname) {
   return function (dispatch) {
-    var url = `${API_URL}/${filename}`;
-    return axios.get(url)
+    return get(dispatch,'GET_CONFIGDATA_FORPROJECT',`/${filename}/searchAll?Projectname=${projectname}`)
       .then(response => {
-        dispatch({
-          type: 'GET_CONFIGDATA_FORPROJECT',
-          payload: response.data
-        })
         return response.data;
       })
       .catch(err => {
@@ -35,9 +19,57 @@ export function getConfigDataForProject(filename) {
   }
 }
 
-export function putConfigData(id, data) {
+export function putConfigData(filename,id, data) {
   return function (dispatch) {
-    return axios.put(`${API_URL}/config/${id}`, data)
+    return put(`/${filename}/${id}`,data)
+      .then(response => {
+        return "success";
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+}
+
+export function postConfigData(filename,data) {
+  return function (dispatch) {
+    return post(`/${filename}`,data)
+      .then(response => {
+        return "success";
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+}
+
+export function createNewProject(data) {
+  return function (dispatch) {
+    return post(`/projects/action/doCreateNewProject`, data)
+      .then(response => {
+        return "success";
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+}
+
+export function executeSP(data) {
+  return function (dispatch) {
+    put(`/projects/action/doExecuteSPProjectsForProcess`, {"spName":"executeProjectsForProcess",data})
+      .then(response => {
+        return "success";
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+}
+
+export function patchConfigData(proj,id,data) {
+  return function (dispatch) {
+    return patch(`/${proj}/${id}`,{"alias":data})
       .then(response => {
         return "success";
       })

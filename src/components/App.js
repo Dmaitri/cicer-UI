@@ -2,27 +2,23 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
 import { connect } from 'react-redux';
-import { testAction } from '../actions/index';
+import { getProjects } from '../actions/index';
 import { selectProject } from '../actions/projectActions';
 import { Link, IndexLink } from 'react-router';
 import 'react-dropdown/style.css';
+import { getConfigDataForProject, putConfigData, postConfigData } from '../actions';
 
 export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { projectName: '' }
-  }
-
   handleProjectChange(event) {
-    this.props.selectProject(event.value);
+    this.props.selectProject(event.value)
   }
 
-
+ 
   componentWillMount() {
     this.props.testAction();
   }
 
-  render() {
+  filterData() {
     var arr = [];
     if (this.props.projects[0] != undefined) {
       for (var i = 0; i < this.props.projects[0].length; i++) {
@@ -31,12 +27,18 @@ export class App extends React.Component {
         arr.push(y);
       }
     }
+    return arr;
+  }
+  render() {
+  //  this.props.getConfigDataForProject("config", this.props.selectedProject);
+
+    let projArr = this.filterData(this);
     return (
       <div className="container-fluid">
         <h1><b>Talentica</b></h1>
         <div className="jumbotron">
           <h6>Select Project:</h6>
-          <Dropdown options={arr} value={this.props.selectedProject} placeholder="Select an option" onChange={(e) => this.handleProjectChange(e)} />
+          <Dropdown options={projArr} value={this.props.selectedProject} placeholder="Select an option" onChange={(e) => this.handleProjectChange(e)} />
         </div>
         <div>
           <nav>
@@ -44,8 +46,7 @@ export class App extends React.Component {
             {" | "}
             <Link to="/execution" activeClassName="active">Execution</Link>
           </nav>
-        {this.props.children} 
-
+          {this.props.children}
         </div >
       </div>
     );
@@ -60,8 +61,9 @@ function mapStateToProps(state) {
 }
 
 const mapActionsToDispatch = (dispatch) => ({
-  testAction: () => dispatch(testAction()),
-  selectProject: (project) => dispatch(selectProject(project))
+  testAction: () => dispatch(getProjects()),
+  selectProject: (project) => dispatch(selectProject(project)),
+  getConfigDataForProject: (filename, projectname) => { return dispatch(getConfigDataForProject(filename, projectname)) },
 });
 
 export default connect(mapStateToProps, mapActionsToDispatch)(App);
