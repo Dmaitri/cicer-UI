@@ -2,11 +2,11 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
 import { connect } from 'react-redux';
-import { getProjects } from '../actions/index';
+import { getProjects } from '../actions/apiAction';
 import { selectProject } from '../actions/projectActions';
 import { Link, IndexLink } from 'react-router';
 import 'react-dropdown/style.css';
-import { getConfigDataForProject, putConfigData, postConfigData } from '../actions';
+import { getConfigDataForProject, putConfigData, postConfigData } from '../actions/apiAction';
 
 export class App extends React.Component {
   handleProjectChange(event) {

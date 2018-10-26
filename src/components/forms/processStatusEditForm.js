@@ -19,7 +19,7 @@ const ProcessStatusEditForm = ({ handleSubmit }) => {
                     <td> <label htmlFor="checkEnvironment">checkEnvironment:</label></td>
                     <Field
                         name="checkEnvironment"
-                        type="text"
+                        type="boolean"
                         component="input"
                         id="checkEnvironment"
                     />

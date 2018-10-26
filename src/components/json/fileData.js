@@ -2,22 +2,22 @@ export var files = [
     {
         id: 1,
         fileName: 'config.json'
-    },
+    },  
     {
         id: 2,
-        fileName: 'repoType.json'
-    },
-    {
-        id: 3,
         fileName: 'git-log-anamoly.json'
     },
     {
-        id: 4,
+        id: 3,
         fileName: 'processStatus.json'
     },
     {
-        id: 5,
+        id: 4,
         fileName: 'emailAliases.json'
     },
+    {
+        id: 5,
+        fileName: 'repoType.json'
+    }
 ];
  

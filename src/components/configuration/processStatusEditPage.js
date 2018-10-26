@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getConfigDataForProject } from '../../actions';
+import { getConfigDataForProject, putConfigData, postConfigData } from '../../actions/apiAction';
 import ProcessStatusEditForm from '../forms/processStatusEditForm';
 import { reduxForm } from 'redux-form';
 
 export class ProcessStatusEditPage extends React.Component {
+    componentWillMount() {
+        this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
+    }
     componentWillReceiveProps(nextProps) {
         const { selectedProject } = this.props;
         if (nextProps.selectedProject != selectedProject) {
@@ -22,7 +25,7 @@ export class ProcessStatusEditPage extends React.Component {
         this.props.putConfigData("processstatus", values["id"], values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"
-                // this.props.getConfigDataForProject("config");
+                this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -33,7 +36,7 @@ export class ProcessStatusEditPage extends React.Component {
         this.props.postConfigData("processstatus", values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"
-                // this.props.getConfigDataForProject("config");
+                this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -55,10 +58,11 @@ export class ProcessStatusEditPage extends React.Component {
         let dataObj = this.filterData(this.props.configData)
 
         if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
+            dataObj["projectname"] = this.props.selectedProject;
             return (
                 <div>
-                    <ProcessstatuseditForm initialValues={dataObj} onSubmit={this.submit} />
-                    <h3>No Data Available related to this project</h3>)
+                    <ProcessstatuseditForm initialValues={dataObj} onSubmit={this.submitPost} />
+                    <h3>No Data Available related to this project</h3>
                     <h6 id="tag"></h6>
                 </div>
             );
@@ -66,7 +70,7 @@ export class ProcessStatusEditPage extends React.Component {
         else {
             return (
                 <div>
-                    <ProcessstatuseditForm initialValues={dataObj} onSubmit={this.submit} />
+                    <ProcessstatuseditForm initialValues={dataObj} onSubmit={this.submitPut} />
                     <h6 id="tag"></h6>
                 </div>
             );
@@ -87,7 +91,8 @@ function mapStateToProps(state) {
 }
 
 const mapActionsToDispatch = (dispatch) => ({
-    getConfigDataForProject: (filename) => { return dispatch(getConfigDataForProject(filename)) },
+    getConfigDataForProject: (filename, projectname) => { return dispatch(getConfigDataForProject(filename, projectname)) },
+    putConfigData: (filename,id, data) => { return dispatch(putConfigData(filename,id, data)) },
+    postConfigData: (filename,data) => { return dispatch(postConfigData(filename,data)) }
 });
-
 export default connect(mapStateToProps, mapActionsToDispatch)(ProcessStatusEditPage);

@@ -13,6 +13,7 @@ const RepoTypeEditForm = ({ handleSubmit, fields }) => {
                             type="text"
                             component="input"
                             id={field.key1}
+                            disabled="true"
                         />
 
                         <td> <label>repotype:</label></td>

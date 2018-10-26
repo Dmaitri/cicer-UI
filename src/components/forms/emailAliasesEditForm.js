@@ -1,20 +1,10 @@
 import React from 'react'
 import { Field } from 'redux-form';
 
-const EmailAliasesEditForm = ({ handleSubmit, fields, handleChange }) => {
+const EmailAliasesEditForm = ({ handleSubmit, fields }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            {/* <tr>
-                    <td> <label htmlFor="projectname">Projectname:</label></td>
-                    <Field
-                        name="projectname"
-                        type="text"
-                        component="input"
-                        id="projectname"
-
-                    />
-                </tr> */}
             {fields.map(field => (
                 <table>
                     <tr>
@@ -24,7 +14,7 @@ const EmailAliasesEditForm = ({ handleSubmit, fields, handleChange }) => {
                             type="text"
                             component="input"
                             id={field.key1}
-                        // disabled="true"
+                            disabled="true"
                         />
                         <td> <label htmlFor={field.key2}>Alias:</label></td>
                         <Field

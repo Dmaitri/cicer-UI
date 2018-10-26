@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getConfigDataForProject, putConfigData, postConfigData } from '../../actions';
+import { getConfigDataForProject, putConfigData, postConfigData } from '../../actions/apiAction';
 import ConfigEditForm from '../forms/configEditForm';
 import { reduxForm } from 'redux-form';
 
 export class ConfigEditPage extends React.Component {
+    componentWillMount() {
+        this.props.getConfigDataForProject("config", this.props.selectedProject);
+    }
+
     componentWillReceiveProps(nextProps) {
         const { selectedProject } = this.props;
         if (nextProps.selectedProject != selectedProject) {
@@ -22,7 +26,7 @@ export class ConfigEditPage extends React.Component {
         this.props.putConfigData("config",values["id"], values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"
-                // this.props.getConfigDataForProject("config");
+                this.props.getConfigDataForProject("config", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -33,7 +37,7 @@ export class ConfigEditPage extends React.Component {
         this.props.postConfigData("config",values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"
-                // this.props.getConfigDataForProject("config");
+                this.props.getConfigDataForProject("config", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -53,6 +57,7 @@ export class ConfigEditPage extends React.Component {
     render() {
         let dataObj = this.filterData(this.props.configData)
         if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
+            dataObj["Projectname"]=this.props.selectedProject;
             return (
                 <div>
                     <ConfigeditForm initialValues={dataObj} onSubmit={this.submitPost} />
@@ -85,7 +90,7 @@ function mapStateToProps(state) {
 }
 const mapActionsToDispatch = (dispatch) => ({
     getConfigDataForProject: (filename, projectname) => { return dispatch(getConfigDataForProject(filename, projectname)) },
-    putConfigData: (id, data) => { return dispatch(putConfigData(id, data)) },
+    putConfigData: (filename,id, data) => { return dispatch(putConfigData(filename,id, data)) },
     postConfigData: (filename,data) => { return dispatch(postConfigData(filename,data)) }
 });
 

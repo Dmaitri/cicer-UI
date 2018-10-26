@@ -78,3 +78,15 @@ export function patchConfigData(proj,id,data) {
       })
   }
 }
+
+export function patchConfigDataRepo(proj,id,data) {
+  return function (dispatch) {
+    return patch(`/${proj}/${id}`,{"repotype":data})
+      .then(response => {
+        return "success";
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+}

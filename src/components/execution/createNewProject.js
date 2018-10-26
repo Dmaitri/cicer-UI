@@ -2,7 +2,7 @@ import React from 'react';
 import CreateNewProjectForm from '../forms/createNewProjectForm';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { getProjects,createNewProject } from '../../actions';
+import { getProjects,createNewProject } from '../../actions/apiAction';
 
 export class CreateNewProject extends React.Component {
     submit=(values)=> {

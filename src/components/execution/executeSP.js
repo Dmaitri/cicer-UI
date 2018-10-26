@@ -2,7 +2,7 @@ import React from 'react';
 import ExecuteSPForm from '../forms/executeSPForm';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { executeSP } from '../../actions';
+import { executeSP } from '../../actions/apiAction';
 
 export class ExecuteSP extends React.Component {
     submit=(values)=> {
