@@ -24,7 +24,6 @@ export class EmailAliasesPage extends React.Component {
     filterData() {
         let x = [];
         let key, value, id;
-        let num=50000;
         // this.props.configData.map(element => {
         let element = this.props.configData;
         for (var i = 0; i < element.length; i++) {
@@ -38,16 +37,15 @@ export class EmailAliasesPage extends React.Component {
                         id = y[ele]
                     }
                 })
-                x.push({ "key1": num + i, "key2": id })
+                x.push({ "key1": "key1" + id, "key2": "key2"+id })
             }
         }
         return x;
     }
 
     initialValues() {
-        let x = [];
+        let x = {};
         let key, value, id;
-        let num=50000;
         // this.props.configData.map(element => {
         let element = this.props.configData;
         for (var i = 0; i < element.length; i++) {
@@ -64,19 +62,20 @@ export class EmailAliasesPage extends React.Component {
                         id = y[ele]
                     }
                 })
-                x[num + i] = key;
-                x[id] = value
+                x["key1" + id] = key;
+                x["key2"+id] = value
             }
         }
         return x;
     }
 
     submit=(values)=> {
+        debugger
         let arr = this.props.configData;
         arr.forEach(ele => {
             if (ele["projectname"] == this.props.selectedProject) {
-                if (ele["alias"] != values[ele["id"]]) {
-                    this.props.patchConfigData("emailalias", ele["id"], values[ele["id"]])
+                if (ele["alias"] != values["key2"+ele["id"]]) {
+                    this.props.patchConfigData("emailalias", ele["id"], values["key2"+ele["id"]])
                         .then(res => {
                             document.getElementById("tag").innerHTML = "success!!";
                         })

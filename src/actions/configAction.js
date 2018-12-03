@@ -2,6 +2,6 @@ export function changeProject(){
     return {type:'GET_DATA',}
 }
 
-export function updateData(key){
-    return {type:'UPDATE_DATA',key}
+export function updateData(payload){
+    return {type:'GET_CONFIGDATA_FORPROJECT',payload}
 }

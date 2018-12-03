@@ -60,14 +60,14 @@ export class RepoTypeEditPage extends React.Component {
                     //  }
                 })
 
-                x.push({ "key1": num + i, "key2": id })
+                x.push({ "key1": "key1" + id, "key2": "key2"+id })
             }
         }
         return x;
     }
 
     initialValues(configData) {
-        let x = [];
+        let x = {};
         let key, value, id;
         let num = 500000;
         // this.props.configData.map(element => {
@@ -90,8 +90,8 @@ export class RepoTypeEditPage extends React.Component {
                     //  }
                 })
 
-                x[num + i] = key;
-                x[id] = value
+                x["key1" + id] = key;
+                x["key2"+id] = value
                 // x.push({ key:key })
             }
         }
@@ -102,8 +102,8 @@ export class RepoTypeEditPage extends React.Component {
         let arr = this.props.configData;
         arr.forEach(ele => {
             if (ele["projectname"] == this.props.selectedProject) {
-                if (ele["repotype"] != values[ele["Id"]]) {
-                    this.props.patchConfigData("repotype", ele["Id"], values[ele["Id"]])
+                if (ele["repotype"] != values["key2"+ele["Id"]]) {
+                    this.props.patchConfigData("repotype", ele["Id"], values["key2"+ele["Id"]])
                         .then(res => {
                             document.getElementById("tag").innerHTML = "success!!";
                             this.props.getConfigDataForProject("repotype", this.props.selectedProject);
