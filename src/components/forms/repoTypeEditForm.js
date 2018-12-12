@@ -14,6 +14,7 @@ const RepoTypeEditForm = ({ handleSubmit, fields }) => {
                             component="input"
                             id={field.key1}
                             disabled="true"
+                            autoComplete="off"
                         />
 
                         <td> <label>repotype:</label></td>
@@ -22,6 +23,7 @@ const RepoTypeEditForm = ({ handleSubmit, fields }) => {
                             type="text"
                             component="input"
                             id={field.key2}
+                            autoComplete="off"
                         />
                     </tr>
                 </table>

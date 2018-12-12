@@ -17,6 +17,7 @@ const EmailAliasesEditForm = ({ handleSubmit, fields }) => {
                                     // id={field.key1}
                                     disabled={true}
                                     key={field.key1}
+                                    autoComplete="off"
                                 />
                             </td>
                             <td key={++i}> <label  key={++i} htmlFor={field.key2}>Alias:</label>
@@ -26,6 +27,7 @@ const EmailAliasesEditForm = ({ handleSubmit, fields }) => {
                                     component="input"
                                     // id={field.key2}
                                     key={field.key2}
+                                    autoComplete="off"
                                 />
                             </td>
                         </tr>

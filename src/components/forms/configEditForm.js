@@ -12,6 +12,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="Projectname"
+                        autoComplete="off"
 
                     />
                 </tr>
@@ -22,6 +23,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="number"
                         component="input"
                         id="anamolyLOCCountPerCommit"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -31,6 +33,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="number"
                         component="input"
                         id="anamolyLOCCount"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -40,6 +43,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="number"
                         component="input"
                         id="ciceroServerPort"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -49,6 +53,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="ciceroServerHost"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -58,6 +63,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="cleanuprepos"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -67,6 +73,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="repospath"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -76,6 +83,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="sonarCommand"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -85,6 +93,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="sonarCommandWithoutType"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -94,6 +103,7 @@ const ConfigEditForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="exCludeFiles"
+                        autoComplete="off"
                     />
                 </tr>
             </table>

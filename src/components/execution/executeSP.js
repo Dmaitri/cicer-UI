@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { executeSP } from '../../actions/apiAction';
 
 export class ExecuteSP extends React.Component {
-    submit=(values)=> {
+    submit = (values) => {
         this.props.executeSP(values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"
@@ -16,9 +16,21 @@ export class ExecuteSP extends React.Component {
     }
 
     render() {
+        let dataArr = {
+            "projectNames": this.props.selectedProject,
+            "mainGitAnalysis": 1,
+            "prepareMainStatus": 1,
+            "mainCiceroAnalysis": 1,
+            "mainSonarAnalysis": 1,
+            "productivityjob": 1,
+            "SonarETL": 1,
+            "analytics": 1,
+            "combineCeicroModelsOfall": 1
+        }
         return (
             <div>
-                <Executespform onSubmit={this.submit}></Executespform>
+                {this.props.selectedProject ? <Executespform initialValues={dataArr} onSubmit={this.submit} />
+                    : <Executespform onSubmit={this.submit} />}
                 <h4 id="tag"></h4>
             </div>
         );
@@ -32,6 +44,7 @@ let Executespform = reduxForm({
 
 function mapStateToProps(state) {
     return {
+        selectedProject: state.selectedProject,
     };
 }
 

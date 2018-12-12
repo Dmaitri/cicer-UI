@@ -13,6 +13,8 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         component="input"
                         id="projectNames"
                         placeholder="Enter Project name here"
+                        autoComplete="off"
+                        disabled={true}
                     />
                 </tr>
                 <tr>
@@ -22,6 +24,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="mainGitAnalysis"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -31,6 +34,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="prepareMainStatus"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -40,6 +44,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="mainCiceroAnalysis"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -49,6 +54,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="mainSonarAnalysis"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -58,6 +64,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="productivityjob"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -67,6 +74,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="SonarETL"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -76,6 +84,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="analytics"
+                        autoComplete="off"
                     />
                 </tr>
                 <tr>
@@ -85,6 +94,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         type="text"
                         component="input"
                         id="combineCeicroModelsOfall"
+                        autoComplete="off"
                     />
                 </tr>
             </table>
