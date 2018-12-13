@@ -22,6 +22,7 @@ export class ProcessStatusEditPage extends React.Component {
     }
 
     submitPut = (values) => {
+        document.getElementById("tag").innerHTML = "Processing.."
         this.props.putConfigData("processstatus", values["id"], values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"
@@ -33,6 +34,7 @@ export class ProcessStatusEditPage extends React.Component {
     }
 
     submitPost = (values) => {
+        document.getElementById("tag").innerHTML = "Processing.."
         this.props.postConfigData("processstatus", values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"

@@ -23,6 +23,7 @@ export class ConfigEditPage extends React.Component {
     }
 
     submitPut = (values) => {
+        document.getElementById("tag").innerHTML = "Processing.."
         this.props.putConfigData("config",values["id"], values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"
@@ -34,6 +35,7 @@ export class ConfigEditPage extends React.Component {
     }
 
     submitPost = (values) => {
+        document.getElementById("tag").innerHTML = "Processing.."
         this.props.postConfigData("config",values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"

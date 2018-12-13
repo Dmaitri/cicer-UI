@@ -6,6 +6,7 @@ import { getProjects,createNewProject } from '../../actions/apiAction';
 
 export class CreateNewProject extends React.Component {
     submit=(values)=> {
+        document.getElementById("tag").innerHTML = "Processing.."
         this.props.createNewProject(values)
             .then(res => {
                 document.getElementById("tag").innerHTML = "success!!!"

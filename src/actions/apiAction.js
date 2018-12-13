@@ -6,6 +6,18 @@ export function getProjects() {
   }
 }
 
+export function getProjectDetail(projectname){
+  return function(dispatch){
+    return get(dispatch,'GET_PROJECT_DETAIL',`/projects/searchAll?name=${projectname}`)
+    .then(res=>{
+      return res;
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
+}
+
 export function getConfigDataForProject(filename,projectname) {
   return function (dispatch) {
     return get(dispatch,'GET_CONFIGDATA_FORPROJECT',`/${filename}/searchAll?Projectname=${projectname}`)
@@ -57,7 +69,7 @@ export function createNewProject(data) {
 
 export function executeSP(data) {
   return function (dispatch) {
-    put(`/projects/action/doExecuteSPProjectsForProcess`, {"spName":"executeProjectsForProcess",data})
+    return put(`/projects/action/doExecuteSPProjectsForProcess`, {"spName":"executeProjectsForProcess",data})
       .then(response => {
         return "success";
       })

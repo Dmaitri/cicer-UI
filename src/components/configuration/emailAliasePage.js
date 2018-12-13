@@ -70,7 +70,7 @@ export class EmailAliasesPage extends React.Component {
     }
 
     submit=(values)=> {
-        debugger
+        document.getElementById("tag").innerHTML = "Processing.."
         let arr = this.props.configData;
         arr.forEach(ele => {
             if (ele["projectname"] == this.props.selectedProject) {

@@ -99,6 +99,7 @@ export class RepoTypeEditPage extends React.Component {
     }
 
     submit = (values) => {
+        document.getElementById("tag").innerHTML = "Processing.."
         let arr = this.props.configData;
         arr.forEach(ele => {
             if (ele["projectname"] == this.props.selectedProject) {
