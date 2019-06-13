@@ -68,7 +68,7 @@ let Executespform = reduxForm({
 
 function mapStateToProps(state) {
     return {
-        selectedProject: state.selectedProject.selectedProject,
+        selectedProject: state.selectedProject,
     };
 }
 
