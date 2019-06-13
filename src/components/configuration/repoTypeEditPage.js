@@ -28,7 +28,9 @@ export class RepoTypeEditPage extends React.Component {
                 if (ele["repotype"] != values[ele["Id"]]) {
                     this.props.patchConfigData("repotype", ele["Id"], values[ele["Id"]])
                         .then(res => {
-                            document.getElementById("tag").innerHTML = "success!!";
+                            if (document.getElementById("tag")) {
+                                document.getElementById("tag").innerHTML = "success!!!"
+                            }
                             this.props.getConfigDataForProject("repotype", this.props.selectedProject);
                         })
                         .catch(err => {
@@ -106,7 +108,9 @@ export class RepoTypeEditPage extends React.Component {
                 if (ele["repotype"] != values["key2"+ele["Id"]]) {
                     this.props.patchConfigData("repotype", ele["Id"], values["key2"+ele["Id"]])
                         .then(res => {
-                            document.getElementById("tag").innerHTML = "success!!";
+                            if (document.getElementById("tag")) {
+                                document.getElementById("tag").innerHTML = "success!!!"
+                            }
                             this.props.getConfigDataForProject("repotype", this.props.selectedProject);
                         })
                         .catch(err => {

@@ -9,7 +9,9 @@ export class CreateNewProject extends React.Component {
         document.getElementById("tag").innerHTML = "Processing.."
         this.props.createNewProject(values)
             .then(res => {
-                document.getElementById("tag").innerHTML = "success!!!"
+                if (document.getElementById("tag")) {
+                    document.getElementById("tag").innerHTML = "success!!!"
+                }
                 this.props.testAction();
             })
             .catch(err => {

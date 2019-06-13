@@ -24,9 +24,11 @@ export class ConfigEditPage extends React.Component {
 
     submitPut = (values) => {
         document.getElementById("tag").innerHTML = "Processing.."
-        this.props.putConfigData("config",values["id"], values)
+        this.props.putConfigData("config", values["id"], values)
             .then(res => {
-                document.getElementById("tag").innerHTML = "success!!!"
+                if (document.getElementById("tag")) {
+                    document.getElementById("tag").innerHTML = "success!!!"
+                }
                 this.props.getConfigDataForProject("config", this.props.selectedProject);
             })
             .catch(err => {
@@ -36,9 +38,11 @@ export class ConfigEditPage extends React.Component {
 
     submitPost = (values) => {
         document.getElementById("tag").innerHTML = "Processing.."
-        this.props.postConfigData("config",values)
+        this.props.postConfigData("config", values)
             .then(res => {
-                document.getElementById("tag").innerHTML = "success!!!"
+                if (document.getElementById("tag")) {
+                    document.getElementById("tag").innerHTML = "success!!!"
+                }
                 this.props.getConfigDataForProject("config", this.props.selectedProject);
             })
             .catch(err => {
@@ -59,7 +63,7 @@ export class ConfigEditPage extends React.Component {
     render() {
         let dataObj = this.filterData(this.props.configData)
         if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
-            dataObj["Projectname"]=this.props.selectedProject;
+            dataObj["Projectname"] = this.props.selectedProject;
             return (
                 <div>
                     <ConfigeditForm initialValues={dataObj} onSubmit={this.submitPost} />
@@ -92,8 +96,8 @@ function mapStateToProps(state) {
 }
 const mapActionsToDispatch = (dispatch) => ({
     getConfigDataForProject: (filename, projectname) => { return dispatch(getConfigDataForProject(filename, projectname)) },
-    putConfigData: (filename,id, data) => { return dispatch(putConfigData(filename,id, data)) },
-    postConfigData: (filename,data) => { return dispatch(postConfigData(filename,data)) }
+    putConfigData: (filename, id, data) => { return dispatch(putConfigData(filename, id, data)) },
+    postConfigData: (filename, data) => { return dispatch(postConfigData(filename, data)) }
 });
 
 export default connect(mapStateToProps, mapActionsToDispatch)(ConfigEditPage);

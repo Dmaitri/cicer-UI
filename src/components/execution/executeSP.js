@@ -19,11 +19,15 @@ export class ExecuteSP extends React.Component {
                     this.props.getProjectDetail(values.projectNames)
                         .then(res => {
                             if (res[0].ExecuteProcessStatus == 0 && res[0].UpdateConfigStatus == 0 && res[0].ConfigSynStatus == 0) {
-                                document.getElementById("tag").innerHTML = "success!!!"
+                                if (document.getElementById("tag")) {
+                                    document.getElementById("tag").innerHTML = "success!!!"
+                                }
                                 clearInterval(this.state.intervalId);
                             }
                             else if (res[0].ExecuteProcessStatus == 3 || res[0].UpdateConfigStatus == 3 || res[0].ConfigSynStatus == 3) {
-                                document.getElementById("tag").innerHTML = "Failed!!!"
+                                if (document.getElementById("tag")) {
+                                    document.getElementById("tag").innerHTML = "Failed!!!"
+                                }
                                 clearInterval(this.state.intervalId);
                             }
                         })
@@ -44,7 +48,8 @@ export class ExecuteSP extends React.Component {
             "productivityjob": 1,
             "SonarETL": 1,
             "analytics": 1,
-            "combineCeicroModelsOfall": 1
+            "combineCeicroModelsOfall": 1,
+            "UpdateReportStatus":1
         }
         return (
             <div>

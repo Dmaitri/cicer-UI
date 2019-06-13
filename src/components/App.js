@@ -35,7 +35,7 @@ export class App extends React.Component {
     let projArr = this.filterData(this);
     return (
       <div className="container-fluid">
-        <h1><b>Talentica</b></h1>
+        <h1><b>Talentica Value Measure 2.0 Admin Portal</b></h1>
         <div className="jumbotron">
           <h6>Select Project:</h6>
           <Dropdown options={projArr} value={this.props.selectedProject} placeholder="Select an option" onChange={(e) => this.handleProjectChange(e)} />

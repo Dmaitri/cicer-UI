@@ -25,7 +25,9 @@ export class ProcessStatusEditPage extends React.Component {
         document.getElementById("tag").innerHTML = "Processing.."
         this.props.putConfigData("processstatus", values["id"], values)
             .then(res => {
-                document.getElementById("tag").innerHTML = "success!!!"
+                if (document.getElementById("tag")) {
+                    document.getElementById("tag").innerHTML = "success!!!"
+                }
                 this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
             })
             .catch(err => {
@@ -37,7 +39,9 @@ export class ProcessStatusEditPage extends React.Component {
         document.getElementById("tag").innerHTML = "Processing.."
         this.props.postConfigData("processstatus", values)
             .then(res => {
-                document.getElementById("tag").innerHTML = "success!!!"
+                if (document.getElementById("tag")) {
+                    document.getElementById("tag").innerHTML = "success!!!"
+                }
                 this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
             })
             .catch(err => {

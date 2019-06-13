@@ -77,7 +77,9 @@ export class EmailAliasesPage extends React.Component {
                 if (ele["alias"] != values["key2"+ele["id"]]) {
                     this.props.patchConfigData("emailalias", ele["id"], values["key2"+ele["id"]])
                         .then(res => {
-                            document.getElementById("tag").innerHTML = "success!!";
+                            if (document.getElementById("tag")) {
+                                document.getElementById("tag").innerHTML = "success!!!"
+                            }
                         })
                         .catch(err => {
                             console.log(err);
