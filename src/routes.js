@@ -9,6 +9,7 @@ import ProcessStatusEditPage from './components/configuration/processStatusEditP
 import RepoTypeEditPage from './components/configuration/repoTypeEditPage';
 import CreateNewProject from './components/execution/createNewProject';
 import ExecuteSP from './components/execution/executeSP';
+import AssociateProject from './components/execution/associateProject';
 
 export default (
     <Route path="/" component={App}>
@@ -20,5 +21,6 @@ export default (
         <Route path="repotypeedit" component={RepoTypeEditPage} />
         <Route path="createnewproject" component={CreateNewProject} />
         <Route path="ExecuteSP" component={ExecuteSP} />
+        <Route path="associateproject" component={AssociateProject} />
     </Route>
 );

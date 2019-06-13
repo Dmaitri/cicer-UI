@@ -50,12 +50,12 @@ export class ConfigurationPage extends React.Component {
 
 function mapStateToProps(state) {  
     return {
-      selectedProject: state.selectedProject
+      selectedProject: state.selectedProject.selectedProject
     };
   }
   
   const mapActionsToDispatch = (dispatch) => ({
-    selectProject: (project) => dispatch( selectProject(project) ),
+    selectProject: (project,id) => dispatch( selectProject(project,id) ),
   });
   
   export default connect(mapStateToProps, mapActionsToDispatch)(ConfigurationPage);  

@@ -17,6 +17,9 @@ class ExecutionPage extends React.Component {
                     <tr>
                         <td><Link to="/ExecuteSP" activeClassName="active">Execute SP</Link></td>
                     </tr>
+                    <tr>
+                        <td><Link to="/associateproject" activeClassName="active">Associate User to project</Link></td>
+                    </tr>
                 </tbody>
             </table>
         );

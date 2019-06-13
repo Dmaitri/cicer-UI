@@ -5,6 +5,11 @@ export function getProjects() {
     get(dispatch,'GET_PROJECTS', '/projects');
   }
 }
+export function getUsers() {
+  return function (dispatch) {
+    return get(dispatch,'GET_USERS', `/Users`);
+  }
+}
 
 export function getProjectDetail(projectname){
   return function(dispatch){
@@ -58,6 +63,17 @@ export function postConfigData(filename,data) {
 export function createNewProject(data) {
   return function (dispatch) {
     return post(`/projects/action/doCreateNewProject`, data)
+      .then(response => {
+        return "success";
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+}
+export function associateUserAndProject(userEmail,projectId) {
+  return function (dispatch) {
+    return post(`/users_project/action/doAddAssocation`, {userEmail,projectId})
       .then(response => {
         return "success";
       })

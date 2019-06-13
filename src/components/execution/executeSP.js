@@ -40,7 +40,7 @@ export class ExecuteSP extends React.Component {
 
     render() {
         let dataArr = {
-            "projectNames": this.props.selectedProject,
+            "projectNames": this.props.selectedProject.selectedProject,
             "mainGitAnalysis": 1,
             "prepareMainStatus": 1,
             "mainCiceroAnalysis": 1,
@@ -53,7 +53,7 @@ export class ExecuteSP extends React.Component {
         }
         return (
             <div>
-                {this.props.selectedProject ? <Executespform initialValues={dataArr} onSubmit={this.submit} />
+                {this.props.selectedProject.selectedProject ? <Executespform initialValues={dataArr} onSubmit={this.submit} />
                     : <Executespform onSubmit={this.submit} />}
                 <h4 id="tag"></h4>
             </div>
@@ -68,7 +68,7 @@ let Executespform = reduxForm({
 
 function mapStateToProps(state) {
     return {
-        selectedProject: state.selectedProject,
+        selectedProject: state.selectedProject.selectedProject,
     };
 }
 
