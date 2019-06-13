@@ -6,28 +6,30 @@ import { reduxForm } from 'redux-form';
 
 export class ConfigEditPage extends React.Component {
     componentWillMount() {
-        this.props.getConfigDataForProject("config", this.props.selectedProject);
+        this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
     }
 
     componentWillReceiveProps(nextProps) {
         const { selectedProject } = this.props;
-        if (nextProps.selectedProject != selectedProject) {
-            this.props.getConfigDataForProject("config", nextProps.selectedProject);
+        if (nextProps.selectedProject.selectedProject != selectedProject.selectedProject) {
+            this.props.getConfigDataForProject("config", nextProps.selectedProject.selectedProject);
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedProject !== prevProps.selectedProject) {
-            this.props.getConfigDataForProject("config", this.props.selectedProject);
+        if (this.props.selectedProject.selectedProject !== prevProps.selectedProject.selectedProject) {
+            this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
         }
     }
 
     submitPut = (values) => {
         document.getElementById("tag").innerHTML = "Processing.."
-        this.props.putConfigData("config",values["id"], values)
+        this.props.putConfigData("config", values["id"], values)
             .then(res => {
-                document.getElementById("tag").innerHTML = "success!!!"
-                this.props.getConfigDataForProject("config", this.props.selectedProject);
+                if (document.getElementById("tag")) {
+                    document.getElementById("tag").innerHTML = "success!!!"
+                }
+                this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -36,10 +38,12 @@ export class ConfigEditPage extends React.Component {
 
     submitPost = (values) => {
         document.getElementById("tag").innerHTML = "Processing.."
-        this.props.postConfigData("config",values)
+        this.props.postConfigData("config", values)
             .then(res => {
-                document.getElementById("tag").innerHTML = "success!!!"
-                this.props.getConfigDataForProject("config", this.props.selectedProject);
+                if (document.getElementById("tag")) {
+                    document.getElementById("tag").innerHTML = "success!!!"
+                }
+                this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -59,7 +63,7 @@ export class ConfigEditPage extends React.Component {
     render() {
         let dataObj = this.filterData(this.props.configData)
         if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
-            dataObj["Projectname"]=this.props.selectedProject;
+            dataObj["Projectname"] = this.props.selectedProject.selectedProject;
             return (
                 <div>
                     <ConfigeditForm initialValues={dataObj} onSubmit={this.submitPost} />
@@ -86,14 +90,14 @@ let ConfigeditForm = reduxForm({
 
 function mapStateToProps(state) {
     return {
-        selectedProject: state.selectedProject,
+        selectedProject: state.selectedProject.selectedProject,
         configData: state.configData
     };
 }
 const mapActionsToDispatch = (dispatch) => ({
     getConfigDataForProject: (filename, projectname) => { return dispatch(getConfigDataForProject(filename, projectname)) },
-    putConfigData: (filename,id, data) => { return dispatch(putConfigData(filename,id, data)) },
-    postConfigData: (filename,data) => { return dispatch(postConfigData(filename,data)) }
+    putConfigData: (filename, id, data) => { return dispatch(putConfigData(filename, id, data)) },
+    postConfigData: (filename, data) => { return dispatch(postConfigData(filename, data)) }
 });
 
 export default connect(mapStateToProps, mapActionsToDispatch)(ConfigEditPage);

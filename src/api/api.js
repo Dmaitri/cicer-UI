@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:9900/data';
+const API_URL = 'https://172.19.101.120:3333/data';
 
 export function get(dispatch, type, url) {
     return axios.get(API_URL + url)

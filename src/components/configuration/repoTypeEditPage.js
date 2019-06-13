@@ -6,30 +6,32 @@ import { reduxForm } from 'redux-form';
 
 export class RepoTypeEditPage extends React.Component {
     componentWillMount() {
-        this.props.getConfigDataForProject("repotype", this.props.selectedProject);
+        this.props.getConfigDataForProject("repotype", this.props.selectedProject.selectedProject);
     }
 
     componentWillReceiveProps(nextProps) {
         const { selectedProject } = this.props;
-        if (nextProps.selectedProject != selectedProject) {
-            this.props.getConfigDataForProject("repotype", nextProps.selectedProject);
+        if (nextProps.selectedProject.selectedProject != selectedProject.selectedProject) {
+            this.props.getConfigDataForProject("repotype", nextProps.selectedProject.selectedProject);
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedProject !== prevProps.selectedProject) {
-            this.props.getConfigDataForProject("repotype", this.props.selectedProject);
+        if (this.props.selectedProject.selectedProject !== prevProps.selectedProject.selectedProject) {
+            this.props.getConfigDataForProject("repotype", this.props.selectedProject.selectedProject);
         }
     }
     submit = (values) => {
         let arr = this.props.configData;
         arr.forEach(ele => {
-            if (ele["projectname"] == this.props.selectedProject) {
+            if (ele["projectname"] == this.props.selectedProject.selectedProject) {
                 if (ele["repotype"] != values[ele["Id"]]) {
                     this.props.patchConfigData("repotype", ele["Id"], values[ele["Id"]])
                         .then(res => {
-                            document.getElementById("tag").innerHTML = "success!!";
-                            this.props.getConfigDataForProject("repotype", this.props.selectedProject);
+                            if (document.getElementById("tag")) {
+                                document.getElementById("tag").innerHTML = "success!!!"
+                            }
+                            this.props.getConfigDataForProject("repotype", this.props.selectedProject.selectedProject);
                         })
                         .catch(err => {
                             console.log(err);
@@ -47,7 +49,7 @@ export class RepoTypeEditPage extends React.Component {
         let element = this.props.configData;
         for (var i = 0; i < element.length; i++) {
             var y = element[i];
-            if (y["projectname"] == this.props.selectedProject) {
+            if (y["projectname"] == this.props.selectedProject.selectedProject) {
                 Object.keys(y).forEach(ele => {
                     //     if (ele != "projectname" && ele != "id") {
                     //  x.push({ key: element, value: y[element] })
@@ -74,7 +76,7 @@ export class RepoTypeEditPage extends React.Component {
         let element = this.props.configData;
         for (var i = 0; i < element.length; i++) {
             var y = element[i];
-            if (y["projectname"] == this.props.selectedProject) {
+            if (y["projectname"] == this.props.selectedProject.selectedProject) {
                 Object.keys(y).forEach(ele => {
                     //     if (ele != "projectname" && ele != "id") {
                     //  x.push({ key: element, value: y[element] })
@@ -102,12 +104,14 @@ export class RepoTypeEditPage extends React.Component {
         document.getElementById("tag").innerHTML = "Processing.."
         let arr = this.props.configData;
         arr.forEach(ele => {
-            if (ele["projectname"] == this.props.selectedProject) {
+            if (ele["projectname"] == this.props.selectedProject.selectedProject) {
                 if (ele["repotype"] != values["key2"+ele["Id"]]) {
                     this.props.patchConfigData("repotype", ele["Id"], values["key2"+ele["Id"]])
                         .then(res => {
-                            document.getElementById("tag").innerHTML = "success!!";
-                            this.props.getConfigDataForProject("repotype", this.props.selectedProject);
+                            if (document.getElementById("tag")) {
+                                document.getElementById("tag").innerHTML = "success!!!"
+                            }
+                            this.props.getConfigDataForProject("repotype", this.props.selectedProject.selectedProject);
                         })
                         .catch(err => {
                             console.log(err);
@@ -141,7 +145,7 @@ let RepotypeditForm = reduxForm({
 
 function mapStateToProps(state) {
     return {
-        selectedProject: state.selectedProject,
+        selectedProject: state.selectedProject.selectedProject,
         configData: state.configData
     };
 }
