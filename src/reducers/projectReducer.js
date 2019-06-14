@@ -22,10 +22,9 @@ export function userReducer(state = [], action) {
 
 //const selectedProject='';
 export function selectProjectReducer(state = '', action) {
-  debugger;
   switch (action.type) {
     case 'SELECT_PROJECT':
-      return {...state,selectedProject:action.selectedProject.selectedProject};
+      return {...state,selectedProject:action.selectedProject};
       case 'SELECT_PROJECT_ID':
       return {...state,selectedProjectId:action.selectedProjectId};
     default:
@@ -34,7 +33,6 @@ export function selectProjectReducer(state = '', action) {
 }
 
 export function selectUserReducer(state = '', action) {
-  debugger;
   switch (action.type) {
     case 'SELECT_USER':
       return {...state,selectedUser:action.selectedUser};
