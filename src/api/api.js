@@ -18,9 +18,12 @@ export function get(dispatch, type, url) {
 export function post(url, data) {
     return axios.post(API_URL + url, data)
         .then(response => {
+           return response;
 
         }).catch(err => {
+
             console.log(err);
+            throw err;
         })
 }
 
