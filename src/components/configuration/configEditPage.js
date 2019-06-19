@@ -29,7 +29,7 @@ export class ConfigEditPage extends React.Component {
                 if (document.getElementById("tag")) {
                     document.getElementById("tag").innerHTML = "success!!!"
                 }
-                this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
+                this.props.getConfigDataForProject("config", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -43,7 +43,7 @@ export class ConfigEditPage extends React.Component {
                 if (document.getElementById("tag")) {
                     document.getElementById("tag").innerHTML = "success!!!"
                 }
-                this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
+                this.props.getConfigDataForProject("config", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
