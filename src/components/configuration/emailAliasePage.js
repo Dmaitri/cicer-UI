@@ -6,19 +6,19 @@ import EmailAliasesEditForm from '../forms/emailAliasesEditForm';
 
 export class EmailAliasesPage extends React.Component {
     componentWillMount() {
-        this.props.getConfigDataForProject("emailalias", this.props.selectedProject.selectedProject);
+        this.props.getConfigDataForProject("emailalias", this.props.selectedProject);
     }
 
     componentWillReceiveProps(nextProps) {
         const { selectedProject } = this.props;
-        if (nextProps.selectedProject.selectedProject != selectedProject.selectedProject) {
-            this.props.getConfigDataForProject("emailalias", nextProps.selectedProject.selectedProject);
+        if (nextProps.selectedProject != selectedProject) {
+            this.props.getConfigDataForProject("emailalias", nextProps.selectedProject);
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedProject.selectedProject !== prevProps.selectedProject.selectedProject) {
-            this.props.getConfigDataForProject("emailalias", this.props.selectedProject.selectedProject);
+        if (this.props.selectedProject !== prevProps.selectedProject) {
+            this.props.getConfigDataForProject("emailalias", this.props.selectedProject);
         }
     }
     filterData() {
@@ -28,7 +28,7 @@ export class EmailAliasesPage extends React.Component {
         let element = this.props.configData;
         for (var i = 0; i < element.length; i++) {
             var y = element[i];
-            if (y["projectname"] == this.props.selectedProject.selectedProject) {
+            if (y["projectname"] == this.props.selectedProject) {
                 Object.keys(y).forEach(ele => {
                     if (ele == "email") {
                         key = y[ele]
@@ -50,7 +50,7 @@ export class EmailAliasesPage extends React.Component {
         let element = this.props.configData;
         for (var i = 0; i < element.length; i++) {
             var y = element[i];
-            if (y["projectname"] == this.props.selectedProject.selectedProject) {
+            if (y["projectname"] == this.props.selectedProject) {
                 Object.keys(y).forEach(ele => {
                     if (ele == "email") {
                         key = y[ele]
@@ -73,7 +73,7 @@ export class EmailAliasesPage extends React.Component {
         document.getElementById("tag").innerHTML = "Processing.."
         let arr = this.props.configData;
         arr.forEach(ele => {
-            if (ele["projectname"] == this.props.selectedProject.selectedProject) {
+            if (ele["projectname"] == this.props.selectedProject) {
                 if (ele["alias"] != values["key2"+ele["id"]]) {
                     this.props.patchConfigData("emailalias", ele["id"], values["key2"+ele["id"]])
                         .then(res => {
