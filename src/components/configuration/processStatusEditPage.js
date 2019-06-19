@@ -6,18 +6,18 @@ import { reduxForm } from 'redux-form';
 
 export class ProcessStatusEditPage extends React.Component {
     componentWillMount() {
-        this.props.getConfigDataForProject("processstatus", this.props.selectedProject.selectedProject);
+        this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
     }
     componentWillReceiveProps(nextProps) {
         const { selectedProject } = this.props;
-        if (nextProps.selectedProject.selectedProject != selectedProject.selectedProject) {
-            this.props.getConfigDataForProject("processstatus", nextProps.selectedProject.selectedProject);
+        if (nextProps.selectedProject != selectedProject) {
+            this.props.getConfigDataForProject("processstatus", nextProps.selectedProject);
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedProject.selectedProject !== prevProps.selectedProject.selectedProject) {
-            this.props.getConfigDataForProject("processstatus", this.props.selectedProject.selectedProject);
+        if (this.props.selectedProject !== prevProps.selectedProject) {
+            this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
         }
     }
 
@@ -28,7 +28,7 @@ export class ProcessStatusEditPage extends React.Component {
                 if (document.getElementById("tag")) {
                     document.getElementById("tag").innerHTML = "success!!!"
                 }
-                this.props.getConfigDataForProject("processstatus", this.props.selectedProject.selectedProject);
+                this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -42,7 +42,7 @@ export class ProcessStatusEditPage extends React.Component {
                 if (document.getElementById("tag")) {
                     document.getElementById("tag").innerHTML = "success!!!"
                 }
-                this.props.getConfigDataForProject("processstatus", this.props.selectedProject.selectedProject);
+                this.props.getConfigDataForProject("processstatus", this.props.selectedProject);
             })
             .catch(err => {
                 console.log(err);
@@ -64,7 +64,7 @@ export class ProcessStatusEditPage extends React.Component {
         let dataObj = this.filterData(this.props.configData)
 
         if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
-            dataObj["projectname"] = this.props.selectedProject.selectedProject;
+            dataObj["projectname"] = this.props.selectedProject;
             return (
                 <div>
                     <ProcessstatuseditForm initialValues={dataObj} onSubmit={this.submitPost} />

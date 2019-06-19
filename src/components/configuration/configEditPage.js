@@ -6,19 +6,19 @@ import { reduxForm } from 'redux-form';
 
 export class ConfigEditPage extends React.Component {
     componentWillMount() {
-        this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
+        this.props.getConfigDataForProject("config", this.props.selectedProject);
     }
 
     componentWillReceiveProps(nextProps) {
         const { selectedProject } = this.props;
-        if (nextProps.selectedProject.selectedProject != selectedProject.selectedProject) {
-            this.props.getConfigDataForProject("config", nextProps.selectedProject.selectedProject);
+        if (nextProps.selectedProject != selectedProject) {
+            this.props.getConfigDataForProject("config", nextProps.selectedProject);
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedProject.selectedProject !== prevProps.selectedProject.selectedProject) {
-            this.props.getConfigDataForProject("config", this.props.selectedProject.selectedProject);
+        if (this.props.selectedProject !== prevProps.selectedProject) {
+            this.props.getConfigDataForProject("config", this.props.selectedProject);
         }
     }
 
@@ -63,7 +63,7 @@ export class ConfigEditPage extends React.Component {
     render() {
         let dataObj = this.filterData(this.props.configData)
         if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
-            dataObj["Projectname"] = this.props.selectedProject.selectedProject;
+            dataObj["Projectname"] = this.props.selectedProject;
             return (
                 <div>
                     <ConfigeditForm initialValues={dataObj} onSubmit={this.submitPost} />
