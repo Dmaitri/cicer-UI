@@ -62,8 +62,8 @@ export class ConfigEditPage extends React.Component {
     }
     render() {
         let dataObj = this.filterData(this.props.configData)
-        if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {          
-s            dataObj["Projectname"] = this.props.selectedProject;
+        if (Object.keys(dataObj).length === 0 && dataObj.constructor === Object) {
+            dataObj["Projectname"] = this.props.selectedProject;
             return (
                 <div>
                     <ConfigeditForm initialValues={dataObj} onSubmit={this.submitPost} />
