@@ -10,6 +10,15 @@ export function projectReducer(state = [], action) {
   }
 }
 
+export function processStatusReducer(state= [], action) {
+  switch (action.type) {
+    case 'GET_PROCESS_STATUS':
+      var x = action.payload;
+      return x;
+    default:
+      return state;
+  }
+}
 export function userReducer(state = [], action) {
   switch (action.type) {
     case 'GET_USERS':

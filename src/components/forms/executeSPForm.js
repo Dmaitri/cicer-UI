@@ -18,7 +18,7 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                     />
                   <label htmlFor="lastRun_Date" style= {{textAlign: 'center' , padding: 10, marginLeft: 30 }} >lastRun_Date</label>
                
-                    <label htmlFor="Status" style= {{textAlign: 'center' , marginRight: 10, marginLeft: 90}}>Status</label>
+                   {/* <label htmlFor="Status" style= {{textAlign: 'center' , marginRight: 10, marginLeft: 90}}>Status</label>  */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="mainGitAnalysis">mainGitAnalysis:</label></td>
@@ -37,14 +37,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusMain"
                         type="text"
                         component="input"
                         id="statusMain"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="prepareMainStatus">prepareMainStatus:</label></td>
@@ -63,14 +63,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusprepareMain"
                         type="text"
                         component="input"
                         id="statusprepareMain"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="mainCiceroAnalysis">mainCiceroAnalysis:</label></td>
@@ -89,14 +89,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusmainCicero"
                         type="text"
                         component="input"
                         id="statusmainCicero"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="mainSonarAnalysis">mainSonarAnalysis:</label></td>
@@ -115,14 +115,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusmainSonar"
                         type="text"
                         component="input"
                         id="statusmainSonar"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="productivityjob">productivityjob:</label></td>
@@ -141,14 +141,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusproductivityjob"
                         type="text"
                         component="input"
                         id="statusproductivityjob"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="SonarETL">SonarETL:</label></td>
@@ -167,14 +167,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusSonarETL"
                         type="text"
                         component="input"
                         id="statusSonarETL"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="analytics">analytics:</label></td>
@@ -193,14 +193,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusanalytics"
                         type="text"
                         component="input"
                         id="statusanalytics"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="combineCeicroModelsOfall">combineCeicroModelsOfall:</label></td>
@@ -219,14 +219,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statuscombineCeicroModelsOfall"
                         type="text"
                         component="input"
                         id="statuscombineCeicroModelsOfall"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
                 <tr>
                     <td> <label htmlFor="combineCeicroModelsOfall">UpdateReportStatus:</label></td>
@@ -245,14 +245,14 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         autoComplete="off"
                         disabled={true}
                     />
-                    <Field
+                    {/* <Field
                         name="statusUpdateReportStatus"
                         type="text"
                         component="input"
                         id="statusUpdateReportStatus"
                         autoComplete="off"
                         disabled={true}
-                    />
+                    /> */}
                 </tr>
             </table>
             <button type="submit">Submit</button>
