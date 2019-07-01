@@ -5,6 +5,18 @@ export function getProjects() {
     get(dispatch,'GET_PROJECTS', '/projects');
   }
 }
+
+export function getProcessStatus(projectname) {
+  return function(dispatch){
+    return get(dispatch,'GET_PROCESS_STATUS',`/processstatus/searchAll?projectname=${projectname}`)
+    .then(res=>{
+      return res;
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
+}
 export function getUsers() {
   return function (dispatch) {
     return get(dispatch,'GET_USERS', `/Users`);
@@ -74,7 +86,8 @@ export function createNewProject(data) {
 export function associateUserAndProject(userEmail,projectId) {
   return function (dispatch) {
     return post(`/users_project/action/doAddAssocation`, {userEmail,projectId})
-      .then(response => {
+      .then(res => {
+        console.log(res);
         return "success";
       })
       .catch(err => {
