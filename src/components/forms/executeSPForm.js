@@ -254,16 +254,6 @@ const ExecuteSPForm = ({ handleSubmit }) => {
                         disabled={true}
                     /> */}
                 </tr>
-                <tr>
-                    <td> <label htmlFor="combineCeicroModelsOfall">UpdateReportStatus:</label></td>
-                    <Field
-                        name="UpdateReportStatus"
-                        type="text"
-                        component="input"
-                        id="UpdateReportStatus"
-                        autoComplete="off"
-                    />
-                </tr>
             </table>
             <button type="submit">Submit</button>
         </form>
