@@ -11,7 +11,11 @@ export class ExecuteSP extends React.Component {
         this.state = { intervalId: 0 }
     }
 
-    
+    componentWillMount() {
+        if (this.props.selectedProject) {
+            this.props.processStatus(this.props.selectedProject.selectedProject)
+        }
+      }
     componentWillReceiveProps(nextProps) {
         console.log('componentWillReceiveProps', nextProps);
         if (this.props.selectedProject != nextProps.selectedProject) {
@@ -46,7 +50,22 @@ export class ExecuteSP extends React.Component {
             })
     }
 
+    filterdata() {
+        if(this.props.projects.length > 0) {
+            let arr = this.props.projects[0];
+            let id = this.props.selectedProject.selectedProjectId
+
+            var result = arr.filter(obj => {
+                return obj.id === id
+              })
+        return result;
+       }
+    }
+
     render() {
+
+      let selectedProjectObj = this.filterdata(this);
+      console.log(selectedProjectObj);
        
        var dataArr;
         if (this.props.processStatusArr && this.props.processStatusArr.length) {
@@ -63,15 +82,16 @@ export class ExecuteSP extends React.Component {
             "SonarETL": statusObj.sonarETL == true ? 1:0,
             "analytics": statusObj.analytics == true ? 1:0,
             "combineCeicroModelsOfall": statusObj.combineCeicroModelsOfall == true ? 1:0,
-            "UpdateReportStatus":1,
+            "UpdateReportStatus":selectedProjectObj[0].UpdateReportStatus,
             "lastRunDateMain": statusObj.last_run_mga_date,
             "lastRunDateprepareMain": statusObj.last_run_pms_date,
             "lastRunDatemainCicero" : statusObj.last_run_mca_date,
-             "lastRunDatemainSonar": statusObj.last_run_msa_date,
-           "lastRunDateproductivityjob": statusObj.last_run_pj_date,
+            "lastRunDatemainSonar": statusObj.last_run_msa_date,
+            "lastRunDateproductivityjob": statusObj.last_run_pj_date,
             "lastRunDateSonarETL": statusObj.last_run_setl_date,
-           "lastRunDateanalytics": statusObj.last_run_analytics_date,
-           "lastRunDatecombineCeicroModelsOfall": statusObj.last_run_ccmoa_date     
+            "lastRunDateanalytics": statusObj.last_run_analytics_date,
+            "lastRunDatecombineCeicroModelsOfall": statusObj.last_run_ccmoa_date  ,
+            "lastRunDateUpdateReportStatus"  : selectedProjectObj[0].LastUpdateReportDate
         }
           
         } else {
@@ -110,6 +130,7 @@ function mapStateToProps(state) {
     return {
         selectedProject: state.selectedProject,
         processStatusArr: state.processStatus,
+        projects: state.projects,
     };
 }
 
